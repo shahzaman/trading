@@ -1,0 +1,16 @@
+<?php
+
+$connection = mysql_connect("sql105.base.pk","basep_16322410","1234567");
+
+$db = mysql_select_db("basep_16322410_user", $connection);
+session_start();
+
+$user_check=$_COOKIE['UserName'];
+$ses_sql=mysql_query("select UserName from admin where UserName='$user_check'", $connection);
+$row = mysql_fetch_assoc($ses_sql);
+$Admin_login_session =$row['UserName'];
+if(!isset($Admin_login_session)){
+mysql_close($connection); 
+header('Location: admin_login_panel.phpl'); 
+}
+?>
