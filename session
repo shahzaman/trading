@@ -11,7 +11,7 @@ $ses_sql=mysql_query("select UserName from user where UserName='$user_check'", $
 $row = mysql_fetch_assoc($ses_sql);
 $login_session =$row['UserName'];
 if(!isset($login_session)){
-mysql_close($connection); // Closing Connection
-header('Location: index.html'); // Redirecting To Home Page
+mysql_close($connection);
+header('Location: index.html'); 
 }
 ?>
