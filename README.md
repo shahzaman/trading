@@ -43,8 +43,8 @@ include('session.php');
                         User name :
                     </div>
                     <div class="reg_smallbar_right">
-                        <input class="txt_box" data-val="true" data-val-required="The User name field is required." id="UserName" name="username" required type="text" value=""  tabindex="1"  autofocus="autofocus"/>
-                        <span class="field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
+                        <input class="txt_box"  id="UserName" name="username" required type="text" value=""  tabindex="1"  autofocus="autofocus"/>
+                        
                     </div>
                 </div>
 
@@ -53,8 +53,8 @@ include('session.php');
                         Password :
                     </div>
                     <div class="reg_smallbar_right">
-                        <input class="txt_box" data-val="true" data-val-required="The Password field is required." id="Password" name="pass_word" type="password" />
-                        <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                        <input class="txt_box"  id="Password" name="pass_word" type="password" />
+                        
                     </div>
                 </div>
 
@@ -66,7 +66,7 @@ include('session.php');
                     </div>
                 </div>
                 <div class="reg_bar">
-                    <span class="field-validation-valid" data-valmsg-for="Login" data-valmsg-replace="true" style="width:100%"></span>
+                    
                 </div>
 
 
