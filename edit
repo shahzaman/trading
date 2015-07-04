@@ -1,1 +1,202 @@
 
+<?php
+include('session.php');
+?>
+<!doctype html>
+<html>
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="">
+    <title>E-trade</title>
+    <link href="style.css" rel="stylesheet">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+
+<div class="header">
+     <div class="header_bar">
+        <img src="images/logo.jpg" width="250" height="100">
+      </div>  
+</div>
+    
+<!--Start menue bar -->
+
+<div id='cssmenu'>
+<ul>
+   <li><a href='#'>Home</a></li>
+   <li class='active'><a href='#'>Products</a>
+      <ul>
+         <li><a href='#'>Electronics</a>
+            <ul>
+               <li><a href='#'>Mobiles</a></li>
+               <li><a href='Exploreproducts.php'>Laptops</a></li>
+			   <li><a href='#'>others</a></li>
+            </ul>
+         </li>
+         <li><a href='#'>Vehicles</a>
+            <ul>
+               <li><a href='#'>Cars</a></li>
+               <li><a href='#'>others</a></li>
+            </ul>
+         </li>
+		 <li><a href='#'>Households</a>
+            <ul>
+               <li><a href='#'>Sofa</a></li>
+               <li><a href='#'>others</a></li>
+            </ul>
+         </li>
+		 <li><a href='#'>Services</a>
+            <ul>
+               <li><a href='#'>Education and classes</a></li>
+               <li><a href='#'>others</a></li>
+            </ul>
+         </li>
+      </ul>
+   </li>
+   <li><a href='#'>About</a></li>
+   <li><a href='#'>Contact</a></li>
+   <li class='active'><a href='login_panel.php'><?php echo $_COOKIE['UserName']; ?></a>
+      <ul>
+         <li><a href='#'></a></li>
+		 <li><a href='logout.php'>Logout</a></li>
+		 <li><a href='#'>settings</a></li>
+		</ul>
+	</li>
+</ul>
+</div>
+
+<!--End menue bar -->
+	
+<?php
+$connection = mysql_connect("localhost","root","")or die('could not connect');
+$sql = mysql_select_db("trading")or die('Database not found');
+$query = ("SELECT * FROM register where Username='$user_check'") or die("Nothing here");
+$result = mysql_query($query);
+
+while($row = mysql_fetch_array($result))
+{
+	
+       $Name = $row['UserName'];
+	   $fname = $row['FirstName'];
+	   $lname = $row['LastName'];
+       $address = $row['Address'];
+       $email = $row['Email'];
+	   $mobiel = $row['Mobile'];
+       $city = $row['City'];
+	   $company = $row['Company'];
+   
+}
+
+mysql_close($connection);
+
+
+
+
+?>
+
+   <section data-role="content">
+            <div class="content">
+<form name="form" action="update_info.php" enctype="multipart/form-data" id="Form1" method="post">
+
+    <h2><?php echo $Name?>&nbsp;your Account Information</h2>
+    <p>To change the Infromation Fill the From</p>
+    <div class="reg_head_bar">Entry of contact details <small style="font-weight: normal">(The fields followed by an * are mandatory)</small></div>
+    <div class="content_reg3" style="background: none">
+        <div class="inline" style="margin-top: 5px">
+            <input data-val="true" data-val-number="The field NullUserID must be a number." id="NullUserID" name="NullUserID" type="hidden" value="" />
+            <div class="label">Company</div>
+            <div class="control">
+                <input class="txt_box" id="txtCompany" maxlength="50" name="Company" placeholder="<?php echo "$company"  ?>" type="text" value="<?php echo $company ?>" />
+                <span class="field-validation-valid" data-valmsg-for="Company" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="inline">
+            <div class="label">First name *</div>
+            <div class="control">
+                <input class="txt_box" data-val="true" data-val-required="This field is mandatory." id="txtFirstName" maxlength="25" name="FirstName" placeholder="<?php echo $fname ?>" type="text" value="<?php echo $fname ?>" />
+                <span class="field-validation-valid" data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="inline">
+            <div class="label">Last name *</div>
+            <div class="control">
+                <input class="txt_box" data-val="true" data-val-required="This field is mandatory." id="txtLastName" maxlength="25" name="LastName" placeholder="<?php echo $lname?>" type="text" value="<?php echo $lname ?>" />
+                <span class="field-validation-valid" data-valmsg-for="LastName" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="inline">
+            <div class="label">Address *</div>
+            <div class="control">
+                <input class="txt_box" data-val="true" data-val-required="This field is mandatory." id="txtAddress" maxlength="250" name="Address" placeholder="<?php echo $address ?>" type="text" value="<?php echo $address ?>" />
+                <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+
+            </div>
+        </div>
+       
+        <div class="inline">
+            <div class="label">Country *</div>
+            <div class="control">
+                <select class="reg3 drop" name="Country">
+                    <option>Pakistan</option>
+					<option>China</option>
+					<option>Saudi Arab</option>
+					<option>Turkey</option>
+                </select>
+            </div>
+        </div>
+        <div class="inline">
+            <div class="label"><label for="City">Punjab *</label></div>
+            <div class="control">
+                <select class="drop" data-val="true" name="City">
+ <option value="<?php echo $city ?>"><?php echo $city ?></option>
+<option value="Lahore">Lahore</option>
+<option value="Gujranwala">Gujranwala</option>
+<option value="Islamabad">Islamabad</option>
+<option value="Faislabad">Fasilabad</option>
+
+</select>
+                <span class="field-validation-valid" data-valmsg-for="ProviceID" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        
+        <div class="inline">
+            <div class="label">Email *</div>
+            <div class="control">
+                <input class="txt_box" data-val="true" data-val-email="Enter a valid Email." data-val-required="This field is mandatory." id="txtEmail" maxlength="50" name="Email" placeholder="<?php echo $email ?>" type="text" value="<?php echo $email ?>" />
+                <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="inline">
+            <div class="label">Mobile *</div>
+            <div class="control">
+                <input class="txt_box" data-val="true" data-val-regex="Enter a numeric value." data-val-regex-pattern="^\d*" data-val-required="This field is mandatory." id="txtMobile" maxlength="20" name="Mobile" type="text" value="<?php echo $mobiel ?>" placeholder="<?php echo $mobiel ?>" />
+                <span class="field-validation-valid" data-valmsg-for="Mobile" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+    
+
+     <div class="inline">
+            <div class="label">&nbsp;</div>
+            <div class="control">
+                <p class="comment">
+                        <input type="submit" id="btnSubmit" class="reg3_validate btn_dark"  />
+                </p>
+            </div>
+        </div>
+    </div>
+    
+
+</form>
+
+
+
+
+
+            </div>
+        </section>
+        
+    
+    
+
+</body>
+</html>
