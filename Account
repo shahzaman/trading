@@ -1,0 +1,175 @@
+<?php
+include('session.php');
+?>
+<html lang=''>
+<head>
+   <meta charset='utf-8'>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="styles.css">
+    <link href="style.css" rel="stylesheet">
+   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+   <script src="script.js"></script>
+   <title>E-Trade</title>
+</head>
+<body>
+	<div class="header">
+		<div class="header_bar">
+			<img src="images/logo.jpg" width="250" height="100">
+		</div>  
+	</div>
+	
+	<!--Start menue bar -->
+
+<div id='cssmenu'>
+<ul>
+   <li><a href='#'>Home</a></li>
+   <li class='active'><a href='#'>Products</a>
+      <ul>
+         <li><a href='#'>Electronics</a>
+            <ul>
+               <li><a href='#'>Mobiles</a></li>
+               <li><a href='Exploreproducts.php'>Laptops</a></li>
+			   <li><a href='#'>others</a></li>
+            </ul>
+         </li>
+         <li><a href='#'>Vehicles</a>
+            <ul>
+               <li><a href='#'>Cars</a></li>
+               <li><a href='#'>others</a></li>
+            </ul>
+         </li>
+		 <li><a href='#'>Households</a>
+            <ul>
+               <li><a href='#'>Sofa</a></li>
+               <li><a href='#'>others</a></li>
+            </ul>
+         </li>
+		 <li><a href='#'>Services</a>
+            <ul>
+               <li><a href='#'>Education and classes</a></li>
+               <li><a href='#'>others</a></li>
+            </ul>
+         </li>
+      </ul>
+   </li>
+   <li><a href='#'>About</a></li>
+   <li><a href='#'>Contact</a></li>
+   <li class='active'><a href='#'><?php echo $_COOKIE['UserName']; ?></a>
+      <ul>
+		  <li><a href='Uploadproduct_form.php'>Add-product</a></li>
+		  <li><a href='#'>Update-product</a></li>
+		  <li><a href='AccountEdit.php'>Update-your-info</a></li>
+		  <li><a href='logout.php'>Logout</a></li>
+		</ul>
+	</li>
+</ul>
+</div>
+
+<!--End menue bar -->
+
+<section data-role="content">
+            <div class="content">
+
+<div>
+    <div class="content_full">
+        <div style="width: 170px; float: left">
+            <div style="width: 170px">
+    
+   
+<br>
+
+    <div class="OptionHeader">
+        <ul class="ul-header">
+            My Account
+        </ul>
+    </div>
+    <div class="OptionBody">
+        <ul class="ul-body">
+            <li><a href="AccountEdit.php">Change my contact details</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+    </div>
+    </div>
+    <div class="OptionHeader">
+    <ul class="ul-header">
+         My Contact Detail
+      </ul>
+        </div>
+        <div class="OptionBody txt_small" style="padding:5px 3px 5px 5px;width:162px;">
+           
+            <?PHP
+			$con=mysql_connect("localhost","root","") ;
+			if(!$con){
+			    die('ERROR'.mysql_error());	
+			}
+	        mysql_select_db('trading',$con);
+			$sql="select UserName,Company,concat(Firstname,' ',Lastname) as Name,Address,Email,Mobile from register where UserName='$user_check'";
+			    $result = mysql_query($sql);
+				while($row = mysql_fetch_array($result)){
+				  echo" <b>Company:- </b>".$row["Company"]."<br><b>Name:- </b> ".$row["Name"]."<br><b>Address:-</b>".$row["Address"]."<br><b>Email:- </b>".$row["Email"]."<br><b>Tel:- </b>".$row["Mobile"]."";
+				}
+			
+           ?>
+           
+           </div>
+        </div>
+        <div id="rld" style="width: 82%; float: left;">
+<div class="sales_content">
+    <h3>&nbsp;My Products</h3>
+    <div class="sales_box">
+        <div class="sales">
+         
+           
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "trading";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+     die("Connection failed: " . $conn->connect_error);
+} 
+
+$sql = "SELECT Model,Brandname,Widescreen,Harddrivesize,Price,laptop_image,Mobile,Email,concat(Firstname,' ',Lastname) as Owner FROM laptops,register 
+      where UserName='$user_check' and p_id='$user_check' and id=id ";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+	  echo" <div class='row_left'>";
+	 echo "<table width='100%' cellpadding='3' id='tbl' ><tr><th width='50px'>Product Image</th><th width='50px'>Productdetail</th><th width='50px'>Owner</th></tr>";
+     // output data of each row
+     while($row = $result->fetch_assoc()) {
+		 $ImagePath = $row['laptop_image'];
+         echo "<tr><td style='text-align:center'> <img src='gallery/$ImagePath' max-width='100' height='100' /></td><td style='text-align:center'>" . $row["Brandname"]. " - " . $row["Widescreen"]. "-". $row["Harddrivesize"]."-".$row["Price"]." </td><td style='text-align:center'>".$row["Owner"]."<br>".$row["Mobile"]."<br>".$row["Email"]."</td></tr>";
+     }
+     echo "</table>";
+	 echo "</div>";
+} else {
+     echo "0 results";
+}
+
+$conn->close();
+?>  
+        
+        </div>
+        </div>
+        </div>
+        <div id="oncomplete"></div>
+        <input id="sortID" type="hidden" />
+    </div>
+</div>
+
+
+
+            </div>
+        </section>
+
+
+
+
+</body>
+<html>
